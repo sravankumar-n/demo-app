@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+
+kind: Deployment
+metadata:
+  name: internalapp-deployment
+  namespace: dev
+  labels:
+    app: myinternalapp
+    type: backend
+
+spec:
+  template:
+    metadata:
+      name: internalapp-pod
+      labels:
+        app: myinternalapp
+    spec:
+      containers:
+        - name: internal-containers
+          image: sharavankumar/demotest:$BUILD_NUMBER
+          imagePullPolicy: Always
+          
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myinternalapp  
